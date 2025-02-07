@@ -31,6 +31,15 @@ def parking_validation(root):
     tk.Button(page, text="Submit", padx=10, pady=5).grid(row=3, column=1, sticky="e")
     tk.Button(page, text="I have a prepaid code", padx=10, pady=5).grid(row=4, column=0, columnspan=2)
 
+def validation_code(root):
+    page = tk.Frame(root)
+    page.grid(padx=40, pady=40)
+    tk.Label(page, text="Your code!").grid(row=0)
+    tk.Label(page, text="insert code here").grid(row=1)
+    tk.Button(page, text="Learn more about how to use a Parking Validation Code").grid(row=2)
+    tk.Button(page, text="Return to Start").grid(row=3)
+    tk.Button(page, text="Code not working? Get a new one here.").grid(row=4)
+
 def prepaid_code(root):
     page = tk.Frame(root)
 
