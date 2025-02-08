@@ -14,24 +14,24 @@ def main_page(root): #home page
     #page.grid_rowconfigure(0, weight=1)  # Give weight to rows
     #page.grid_rowconfigure(1, weight=1)
 
-    tk.Label(page, text="Welcome!", font=("Segoe UI", 28, "bold")).grid(row=0, column=1, columnspan=2)
-    tk.Label(page, text="Please select an option below.", font=("Segoe UI", 12, "bold")).grid(row=1, column=1, columnspan=2, pady=20)
-    tk.Button(page, text="Parking Validation", justify="left", padx=10, pady=5, command=validation_entry).grid(row=2, column=1, sticky="nsew", padx=10)
-    tk.Button(page, text="Temporary Badge", padx=10, pady=5).grid(row=2, column=2, sticky="nsew", padx=10)
+    welcome_label = tk.Label(page, text="Welcome!", font=("Segoe UI", 28, "bold")).grid(row=0, column=1, columnspan=2)
+    option_label = tk.Label(page, text="Please select an option below.", font=("Segoe UI", 12, "bold")).grid(row=1, column=1, columnspan=2, pady=20)
+    parking_val = tk.Button(page, text="Parking Validation", justify="left", padx=10, pady=5, command=validation_entry).grid(row=2, column=1, sticky="nsew", padx=10)
+    temp_badge = tk.Button(page, text="Temporary Badge", padx=10, pady=5).grid(row=2, column=2, sticky="nsew", padx=10)
     
     
 
 def parking_validation(root): #employee data entry
     page = tk.Frame(root)
     page.grid(padx=40, pady=40)
-    tk.Label(page, text="Please enter your Name and ID below.").grid(row=0, column=0, columnspan=2)
-    tk.Label(page, text="Name").grid(row=1, column=0)    
-    tk.Entry(page).grid(row=1, column=1)
-    tk.Label(page, text="ID").grid(row=2, column=0)
-    tk.Entry(page).grid(row=2, column=1)
-    tk.Button(page, text="Cancel", padx=10, pady=5, command=home_return).grid(row=3, column=0)
-    tk.Button(page, text="Submit", padx=10, pady=5, command=parking_submit).grid(row=3, column=1, sticky="e")
-    tk.Button(page, text="I have a prepaid code", padx=10, pady=5).grid(row=4, column=0, columnspan=2)
+    entry_label = tk.Label(page, text="Please enter your Name and ID below.").grid(row=0, column=0, columnspan=2)
+    name_label = tk.Label(page, text="Name").grid(row=1, column=0)    
+    name_entry = tk.Entry(page).grid(row=1, column=1)
+    id_name = tk.Label(page, text="ID").grid(row=2, column=0)
+    id_entry = tk.Entry(page).grid(row=2, column=1)
+    return_home = tk.Button(page, text="Cancel", padx=10, pady=5, command=home_return).grid(row=3, column=0)
+    submit_data = tk.Button(page, text="Submit", padx=10, pady=5, command= lambda: parking_submit(name_entry.get(), id_entry.get())).grid(row=3, column=1, sticky="e")
+    prepaid_code = tk.Button(page, text="I have a prepaid code", padx=10, pady=5).grid(row=4, column=0, columnspan=2)
 
 
 
@@ -43,11 +43,11 @@ def prepaid_code(root): #guest data entry with prepaid codes
 def validation_code(root): #provides validation code
     page = tk.Frame(root)
     page.grid(padx=40, pady=40)
-    tk.Label(page, text="Your code!").grid(row=0)
-    tk.Label(page, text="insert code here").grid(row=1)
-    tk.Button(page, text="Learn more about how to use a Parking Validation Code", padx=10, pady=5).grid(row=2)
-    tk.Button(page, text="Return to Start", padx=10, pady=5, command=home_return).grid(row=3)
-    tk.Button(page, text="Code not working? Get a new one here.", padx=10, pady=5, command=validation_entry).grid(row=4)
+    success_label = tk.Label(page, text="Your code!").grid(row=0)
+    code = tk.Label(page, text="insert code here").grid(row=1)
+    validation_tutorial = tk.Button(page, text="Learn more about how to use a Parking Validation Code", padx=10, pady=5).grid(row=2)
+    return_home = tk.Button(page, text="Return to Start", padx=10, pady=5, command=home_return).grid(row=3)
+    parking_val = tk.Button(page, text="Code not working? Get a new one here.", padx=10, pady=5, command=validation_entry).grid(row=4)
 
 
 
@@ -79,9 +79,16 @@ def prepaid_entry():
         widget.destroy()
     prepaid_code(root)
 
-def parking_submit():
+def parking_submit(name, id):
     for widget in root.winfo_children():
         widget.destroy()
+    data = {
+        'date':[pd.Timestamp.today().strftime("%m/%d/%Y")],
+        'ID':[id],
+        'Name':[name]
+    }
+    df = pd.DataFrame(data) #creates data frame from above data
+    df.to_csv('/employee_logs/parkingDataTest1.xlsx', mode='a', index=False, header=False)
     validation_code(root)
 
 def prepaid_submit():
