@@ -26,9 +26,11 @@ def parking_validation(root): #employee data entry
     page.grid(padx=40, pady=40)
     entry_label = tk.Label(page, text="Please enter your Name and ID below.").grid(row=0, column=0, columnspan=2)
     name_label = tk.Label(page, text="Name").grid(row=1, column=0)    
-    name_entry = tk.Entry(page).grid(row=1, column=1)
+    name_entry = tk.Entry(page)
+    name_entry.grid(row=1, column=1)
     id_name = tk.Label(page, text="ID").grid(row=2, column=0)
-    id_entry = tk.Entry(page).grid(row=2, column=1)
+    id_entry = tk.Entry(page)
+    id_entry.grid(row=2, column=1)
     return_home = tk.Button(page, text="Cancel", padx=10, pady=5, command=home_return).grid(row=3, column=0)
     submit_data = tk.Button(page, text="Submit", padx=10, pady=5, command= lambda: parking_submit(name_entry.get(), id_entry.get())).grid(row=3, column=1, sticky="e")
     prepaid_code = tk.Button(page, text="I have a prepaid code", padx=10, pady=5).grid(row=4, column=0, columnspan=2)
@@ -82,13 +84,25 @@ def prepaid_entry():
 def parking_submit(name, id):
     for widget in root.winfo_children():
         widget.destroy()
-    data = {
-        'date':[pd.Timestamp.today().strftime("%m/%d/%Y")],
-        'ID':[id],
-        'Name':[name]
-    }
-    df = pd.DataFrame(data) #creates data frame from above data
-    df.to_csv('/employee_logs/parkingDataTest1.xlsx', mode='a', index=False, header=False)
+    
+    data = pd.DataFrame([{
+        'Date':pd.Timestamp.today().strftime("%m/%d/%Y"),
+        'ID':id,
+        'Name':name
+    }])
+    #df = pd.DataFrame(data) #creates data frame from above data
+    
+    #print(Path.cwd())
+    file_path = Path.cwd() / 'employee_logs' / 'parkingDataTest1.xlsx'
+    df =  pd.read_excel(file_path)
+
+    data = data[df.columns]
+
+    df = pd.concat([df, data], ignore_index=True)
+
+    #df = df._append(data, ignore_index=True)
+    df.to_excel(file_path, index=False)
+    #df.to_csv(file_path, mode='a', index=False, header=False)
     validation_code(root)
 
 def prepaid_submit():
