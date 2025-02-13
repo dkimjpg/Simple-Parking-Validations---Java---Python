@@ -21,8 +21,18 @@ depending on specific usage.
 For those of you who don't know what a csv file is, it's a basic spreadsheet file where columns are separated by commas, and rows are separated
 line by line.
 
-UPDATE (1/28/2025): This project now uses excel files (.xlsx) instead of CSV files (.csv) for spreadsheets, to make it more convenient for users.
+UPDATE (1/28/2025): This project now uses Excel files (.xlsx) instead of CSV files (.csv) for spreadsheets, to make it more convenient for users.
 
 # Features
 - Offers parking validation codes to employees
 - Handles a few other potential requests that a front desk might get from employees and visitors
+
+# To-Do
+- [ ] Implement Python version  
+  - [x] GUI
+  - [ ] Read operation
+  - [x] Write operation
+- [ ] Implement Java version
+  - [ ] GUI
+  - [ ] Read operation
+  - [ ] Write operation
