@@ -19,21 +19,40 @@ def main_page(root): #home page
     parking_val = tk.Button(page, text="Parking Validation", justify="left", padx=10, pady=5, command=validation_entry).grid(row=2, column=1, sticky="nsew", padx=10)
     temp_badge = tk.Button(page, text="Temporary Badge", padx=10, pady=5).grid(row=2, column=2, sticky="nsew", padx=10)
     
-    
+
+
+def validate_entries(*entries):
+    #Check if all entries have values
+    return all(entry.get().strip() for entry in entries)
 
 def parking_validation(root): #employee data entry
     page = tk.Frame(root)
     page.grid(padx=40, pady=40)
+
     entry_label = tk.Label(page, text="Please enter your Name and ID below.").grid(row=0, column=0, columnspan=2)
     name_label = tk.Label(page, text="Name").grid(row=1, column=0)    
     name_entry = tk.Entry(page)
     name_entry.grid(row=1, column=1)
+
     id_name = tk.Label(page, text="ID").grid(row=2, column=0)
     id_entry = tk.Entry(page)
     id_entry.grid(row=2, column=1)
+
     return_home = tk.Button(page, text="Cancel", padx=10, pady=5, command=home_return).grid(row=3, column=0)
-    submit_data = tk.Button(page, text="Submit", padx=10, pady=5, command= lambda: parking_submit(name_entry.get(), id_entry.get())).grid(row=3, column=1, sticky="e")
+    submit_data = tk.Button(page, text="Submit", padx=10, pady=5, command= lambda: parking_submit(name_entry.get(), id_entry.get()))
+    submit_data.grid(row=3, column=1, sticky="e")
+    submit_data.config(state='disabled') #initially disabled so users can't press it before filling out the entry fields for name and id
     prepaid_code = tk.Button(page, text="I have a prepaid code", padx=10, pady=5).grid(row=4, column=0, columnspan=2)
+
+    def check_entries(*args):
+        #Enable submit button only if all fields are filled
+        if validate_entries(name_entry, id_entry):
+            submit_data.config(state='normal')
+        else:
+            submit_data.config(state='disabled')
+    
+    name_entry.bind('<KeyRelease>', check_entries)
+    id_entry.bind('<KeyRelease>', check_entries)
 
 
 
