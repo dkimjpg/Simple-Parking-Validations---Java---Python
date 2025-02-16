@@ -96,8 +96,25 @@ def prepaid_code(root): #guest data entry with prepaid codes
 def validation_code(root): #provides validation code
     page = tk.Frame(root)
     page.grid(padx=40, pady=40)
+
+    code_path = Path.cwd() / 'parking_codes' / 'parkingCodeTest1.xlsx'
+    df = pd.read_excel(code_path, header=None)
+
+    #print(df.columns)
+
+    current_row = df.iat[0, 2]
+    """
+    print(df.iat[0,0])
+    print(df.iat[0,1])
+    print(df.iat[0,2])
+    print(current_row)
+    """
+    code_info = str(df.iat[int(current_row) - 1, 0])
+    df.iat[0, 2] = current_row + 1
+    df.to_excel(code_path, index=False, header=False)
+
     success_label = tk.Label(page, text="Your code!").grid(row=0)
-    code = tk.Label(page, text="insert code here").grid(row=1)
+    code = tk.Label(page, text=code_info).grid(row=1)
     validation_tutorial = tk.Button(page, text="Learn more about how to use a Parking Validation Code", padx=10, pady=5).grid(row=2)
     return_home = tk.Button(page, text="Return to Start", padx=10, pady=5, command=home_return).grid(row=3)
     parking_val = tk.Button(page, text="Code not working? Get a new one here.", padx=10, pady=5, command=validation_entry).grid(row=4)
