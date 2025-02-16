@@ -76,9 +76,9 @@ def prepaid_code(root): #guest data entry with prepaid codes
 
     return_home = tk.Button(page, text="Cancel", padx=10, pady=5, command=home_return).grid(row=4, column=0)
     submit_data = tk.Button(page, text="Submit", padx=10, pady=5, command= lambda: prepaid_submit(guest_entry.get(), provider_entry.get(), prepaid_entry.get()))
-    submit_data.grid(row=4, column=1, sticky="e")
+    submit_data.grid(row=4, column=1)
     submit_data.config(state='disabled') #initially disabled so users can't press it before filling out the entry fields for name and id
-    parking_val = tk.Button(page, text="I don't have a prepaid code", padx=10, pady=5).grid(row=5, column=0, columnspan=2)
+    parking_val = tk.Button(page, text="I don't have a prepaid code", padx=10, pady=5, command=validation_entry).grid(row=5, column=0, columnspan=2)
 
     def check_entries(*args):
         #Enable submit button only if all fields are filled
