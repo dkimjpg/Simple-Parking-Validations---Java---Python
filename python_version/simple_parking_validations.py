@@ -99,16 +99,8 @@ def validation_code(root): #provides validation code
 
     code_path = Path.cwd() / 'parking_codes' / 'parkingCodeTest1.xlsx'
     df = pd.read_excel(code_path, header=None)
-
-    #print(df.columns)
-
     current_row = df.iat[0, 2]
-    """
-    print(df.iat[0,0])
-    print(df.iat[0,1])
-    print(df.iat[0,2])
-    print(current_row)
-    """
+
     code_info = str(df.iat[int(current_row) - 1, 0])
     df.iat[0, 2] = current_row + 1
     df.to_excel(code_path, index=False, header=False)

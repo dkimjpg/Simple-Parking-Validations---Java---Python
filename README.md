@@ -28,9 +28,9 @@ UPDATE (1/28/2025): This project now uses Excel files (.xlsx) instead of CSV fil
 - Handles a few other potential requests that a front desk might get from employees and visitors
 
 # To-Do
-- [ ] Implement Python version  
+- [x] Implement Python version  
   - [x] GUI
-  - [ ] Read operation
+  - [x] Read operation
   - [x] Write operation
 - [ ] Implement Java version
   - [ ] GUI
