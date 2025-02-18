@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import pandas as pd
 from pathlib import Path
 from ctypes import windll
@@ -17,7 +18,7 @@ def main_page(root): #home page
     welcome_label = tk.Label(page, text="Welcome!", font=("Segoe UI", 28, "bold")).grid(row=0, column=1, columnspan=2)
     option_label = tk.Label(page, text="Please select an option below.", font=("Segoe UI", 12, "bold")).grid(row=1, column=1, columnspan=2, pady=20)
     parking_val = tk.Button(page, text="Parking Validation", justify="left", padx=10, pady=5, command=validation_entry).grid(row=2, column=1, sticky="nsew", padx=10)
-    temp_badge = tk.Button(page, text="Temporary Badge", padx=10, pady=5).grid(row=2, column=2, sticky="nsew", padx=10)
+    temp_badge = tk.Button(page, text="Temporary Badge", padx=10, pady=5, command=temporary_badge_message).grid(row=2, column=2, sticky="nsew", padx=10)
     
 
 
@@ -203,6 +204,9 @@ def center_window(window, width=1000, height=720):
     
     # Set window size and position
     window.geometry(f"{width}x{height}+{x}+{y}")
+
+def temporary_badge_message():
+    messagebox.showinfo("Temporary Badge Info", "Ask the receptionist about getting a temporary badge, or call the service center if there is no receptionist present.")
 
 #def button_clicked():
     #print("button clicked!")
