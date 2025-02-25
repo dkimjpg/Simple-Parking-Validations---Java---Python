@@ -9,7 +9,7 @@ own parking validation code system, you're putting a lot of sensitive employee d
 special.
 
 For the JavaScript version of this app, click here: [https://github.com/dkimjpg/Simple-Parking-Validations](https://github.com/dkimjpg/Simple-Parking-Validations)
-For the C# version of this app, click here:[https://github.com/dkimjpg/Simple-Parking-Validations---C-.NET-](https://github.com/dkimjpg/Simple-Parking-Validations---C-.NET-)
+For the C# version of this app, click here: [https://github.com/dkimjpg/Simple-Parking-Validations---C-.NET-](https://github.com/dkimjpg/Simple-Parking-Validations---C-.NET-)
 
 # How parking validation code distribution works:
 When an employee enters their name and alias information into the designated areas, a preexisting csv file with the parking validation codes 
